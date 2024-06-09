@@ -1,5 +1,25 @@
-# W-CODA2024-Track2
-This repository is dedicated to Track 2 of the W-CODA 2024 Workshop, "Multimodal Perception and Comprehension of Corner Cases in Autonomous Driving," held at ECCV 2024 in Milano, Italy.
+# W-CODA2024-Track2: Corner Case Scene Generation
+This repository is dedicated to Track 2 of the W-CODA 2024 Workshop, "Multimodal Perception and Comprehension of Corner Cases in Autonomous Driving," held at ECCV 2024.
+
+## Evaluation Guidelines
+
+The evaluation metrics used in this codebase are designed to assess the performance of submissions for the ECCV2024 Workshop. Below are the detailed guidelines and requirements for participants:
+
+### Evaluation Metrics
+- mAP (Mean Average Precision): Measures the precision-recall curve across all classes.
+- BEV mIoU (Bird’s Eye View Mean Intersection over Union): Evaluates the accuracy of segmentation in the bird’s eye view.
+- FVD (Fréchet Video Distance): Assesses the quality of generated videos by comparing the distribution of features between generated and real videos.
+### Submission Requirements
+- Participants are required to generate annotated videos for 150 scenes from the Nuscene validation set.
+- To simplify the generation process, only the first 16 frames of each scene need to be annotated and generated.
+- Evaluations will be based on the metrics mentioned above.
+### Specific Evaluation Details
+**Detection and Segmentation Results:**
+- Because BEVFormer utilizes key frame information, we will only evaluate the detection and segmentation results on the 3 key frames within the 16-frame sequences.
+
+**Generated Videos:**
+- Participants must provide videos corresponding to the first 16 frames of the 150 scenes.
+- The provided videos will be evaluated using mAP, BEV mIoU, and FVD metrics.
 
 ## Test FVD
 
@@ -61,11 +81,11 @@ python process_split_rename_images.py
 
 ### Run mIoU/mAP Test
 
-To perform the mIoU test with 8 GPUs, use the test_miou.sh script. This script will:
+To perform the mIoU test with 8 GPUs, use the `test_miou.sh` script. This script will:
 
-1.	Check and remove the existing symbolic link ./data/nuscenes/samples if it exists.
-2.	Create a new symbolic link ./data/nuscenes/samples pointing to the target folder (e.g., “/W-CODA2024-Track2/gen_samples_0”).
-3.	Run the ./tools/dist_test.sh script to perform the mIoU test on the BEVFormer model using the specified configuration file and checkpoint.
+1.	Check and remove the existing symbolic link `./data/nuscenes/samples` if it exists.
+2.	Create a new symbolic link `./data/nuscenes/samples` pointing to the target folder (e.g., `/W-CODA2024-Track2/gen_samples_0`).
+3.	Run the `./tools/dist_test.sh` script to perform the mIoU test on the BEVFormer model using the specified configuration file and checkpoint.
 
 The script is designed to loop through a list of target folders (e.g., “gen_samples_0”, “gen_samples_1”, “gen_samples_2”, “gen_samples_3”), performing the mIoU test on each folder.
 
@@ -73,3 +93,10 @@ Run the script with the following command:
 ```bash
 bash test_miou.sh
 ```
+
+### Note
+
+You can download the files mentioned above from the following links:
+- [nuscenes_infos_temporal_val_3keyframes.pkl](https://huggingface.co/datasets/pengxiang/W-CODA2024-Track2)
+
+- [nuscenes_infos_temporal_val_12hz.pkl](https://huggingface.co/datasets/pengxiang/W-CODA2024-Track2)

@@ -24,5 +24,5 @@ do
   ln -s "/W-CODA2024-Track2/$folder" "./data/nuscenes/samples"
   
   # Run the test script
-  ./tools/dist_test.sh ./projects/configs/bevformer/bevformer_base_seg_det_150x150.py ./ckpts/bevformer_base_seg_det_150.pth 7
+  ./tools/dist_test.sh ./projects/configs/bevformer/bevformer_base_seg_det_150x150.py ./ckpts/bevformer_base_seg_det_150.pth 8
 done
