@@ -18,7 +18,7 @@ def parse_args():
     parser.add_argument('--output_path1', type=str, default="/videos1.pt", help='Output path for videos1')
     parser.add_argument('--output_path2', type=str, default="/videos2.pt", help='Output path for videos2')
     parser.add_argument('--device', type=str, default="cuda:0", help='Device for computation')
-    parser.add_argument('--use_cache', type=bool, default=False, help='Whether to use cached Tensor')
+    parser.add_argument('--use_cache', type=bool, default=True, help='Whether to use cached Tensor')
     args = parser.parse_args()
     return args
 
