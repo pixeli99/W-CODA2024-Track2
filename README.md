@@ -63,7 +63,7 @@ The evaluation metrics used in this codebase are designed to assess the performa
 Clone this repo
 
 ```bash
-git clone https://github.com/pixeli99/W-CODA2024-Track2.git
+git clone --single-branch https://github.com/pixeli99/W-CODA2024-Track2.git
 ```
 
 Setup python environment and pre-trained weights.
