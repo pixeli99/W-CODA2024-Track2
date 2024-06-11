@@ -125,7 +125,10 @@ magicdrive-t-log/evaluation/generated_samples/
 ├── gen_samples_1/
 ├── gen_samples_2/
 ├── gen_samples_3/
-└── nuscenes_infos_temporal_val_3keyframes.pkl
+├── nuscenes_infos_temporal_val_3keyframes_gen0.pkl
+├── nuscenes_infos_temporal_val_3keyframes_gen1.pkl
+├── nuscenes_infos_temporal_val_3keyframes_gen2.pkl
+└── nuscenes_infos_temporal_val_3keyframes_gen3.pkl
 ```
 
 Now you can run BEVFormer with
@@ -137,7 +140,7 @@ bash test_miou.sh \
 # you can use as many gpus as you wish
 ```
 
-The results will be shown in the terminal. You can also find the results in:
+The script will launch evaluation using each of the data infos, and calculate the average after all your data is evaluated. The results will be shown in the terminal. You can also find the results in log and average them:
 
 -  `magicdrive-t-log/evaluation/bevformer_base_seg_det_150x150/*/segmentation_result.json` for `mIoU`
 - `magicdrive-t-log/evaluation/bevformer_base_seg_det_150x150/*/pts_bbox/metrics_summary.json` for `mean_ap` as the `mAP`.
