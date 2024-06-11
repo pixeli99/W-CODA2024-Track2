@@ -35,8 +35,9 @@ def run(
             first_frame_tokens.append(info['token'])
     print(f"loaded scenes: {first_frame_tokens.__len__()}")
 
-    test_infos = []
+    save_paths = []
     for gen_idx in range(generation_times):
+        test_infos = []
         save_dir = os.path.join(gen_root, f"gen_samples_{gen_idx}")
 
         # make save dir
@@ -50,11 +51,13 @@ def run(
 
             # make new info for this video frames
             this_kf_info = deepcopy(token_info_dict[token])
-            this_kf_info['scene_token'] = this_kf_info['scene_token'] + f"_gen{gen_idx}"
+            this_kf_info['scene_token'] = this_kf_info['scene_token'] + \
+                f"_gen{gen_idx}"
             vid_infos = [this_kf_info]
             for _ in range(len(key_frame_index) - 1):
                 this_kf_info = deepcopy(token_info_dict[this_kf_info['next']])
-                this_kf_info['scene_token'] = this_kf_info['scene_token'] + f"_gen{gen_idx}"
+                this_kf_info['scene_token'] = this_kf_info['scene_token'] + \
+                    f"_gen{gen_idx}"
                 vid_infos.append(this_kf_info)
 
             # save image and update infos
@@ -86,14 +89,16 @@ def run(
                     kf_idx += 1
             else:  # if not break, we have saved images and changed infos
                 test_infos += vid_infos
-    print(f"test infos length = {len(test_infos)}")
-    save_path = os.path.join(
-        gen_root, "nuscenes_infos_temporal_val_3keyframes.pkl")
-    mmcv.dump(
-        {"infos": test_infos, "metadata": data['metadata']},
-        save_path
-    )
-    print(f"Please load data info from {save_path} for testing.")
+        print(f"test infos for gen {gen_idx} length = {len(test_infos)}")
+        save_path = os.path.join(
+            gen_root,
+            f"nuscenes_infos_temporal_val_3keyframes_gen{gen_idx}.pkl")
+        mmcv.dump(
+            {"infos": test_infos, "metadata": data['metadata']},
+            save_path
+        )
+        save_paths.append(save_path)
+    print(f"Please load data info from {save_paths} for testing.")
 
 
 if __name__ == "__main__":

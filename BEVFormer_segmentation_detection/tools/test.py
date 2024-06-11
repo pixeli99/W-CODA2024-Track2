@@ -98,6 +98,8 @@ def parse_args():
         default='none',
         help='job launcher')
     parser.add_argument('--local_rank', type=int, default=0)
+    parser.add_argument('--log_timestamp', type=str, default=None)
+    parser.add_argument('--log_part', type=str, default=None)
     args = parser.parse_args()
     if 'LOCAL_RANK' not in os.environ:
         os.environ['LOCAL_RANK'] = str(args.local_rank)
@@ -227,10 +229,14 @@ def main():
         model.PALETTE = dataset.PALETTE
 
     
+    if args.log_timestamp is None:
+        args.log_timestamp = time.ctime().replace(' ', '_').replace(':', '_')
     log_root = osp.join(
         'magicdrive-t-log/evaluation', args.config.split('/')[-1].split('.')[-2],
-        time.ctime().replace(' ', '_').replace(':', '_'),
+        args.log_timestamp,
     )
+    if args.log_part is not None:
+        log_root = osp.join(log_root, args.log_part)
     rank, _ = get_dist_info()
     if rank == 0:
         os.makedirs(log_root)
