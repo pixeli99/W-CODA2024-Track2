@@ -16,6 +16,17 @@ python workshop/test_submit.py \
     show_box=false runner.validation_times=4
 ```
 
+or with multiple gpus, e.g., 8
+
+```bash
+cd ${MagicDrive_root}
+accelerate launch --gpu_ids all --num_processes 8 workshop/test_submit.py \
+	resume_from_checkpoint=magicdrive-t-log/links/with_sweeps/SDv1.5mv-rawbox-t_2023-12-04_17-51_2.0t_0.4.3/weight-E4-S77040/ \
+	task_id=track2 ++runner.validation_index=all \
+    ++dataset.data.val.ann_file=data/nuscenes_mmdet3d-12Hz/nuscenes_interp_12Hz_infos_track2_eval.pkl \
+    show_box=false runner.validation_times=4
+```
+
 You will get the results at path like `magicdrive-t-log/submission/SDv1.5mv-rawbox-t_2024-06-10_11-08_track2` with content like:
 
 ```
