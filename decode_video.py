@@ -5,7 +5,7 @@ import numpy as np
 from copy import deepcopy
 from PIL import Image
 from moviepy.editor import VideoFileClip
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 
 def process_video(token, video_root, gen_idx, key_frame_index, view_order, 
@@ -49,7 +49,7 @@ def process_video(token, video_root, gen_idx, key_frame_index, view_order,
             this_img.save(save_path)
             this_kf_info['cams'][view]['data_path'] = save_path
             kf_idx += 1
-
+    else:
         test_infos += vid_infos
 
     return test_infos
@@ -94,7 +94,7 @@ def run(
             os.makedirs(cam_save_dir, exist_ok=True)
 
         test_infos = []
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        with ProcessPoolExecutor(max_workers=max_workers) as executor:
             future_to_token = {executor.submit(process_video, token, video_root, gen_idx, key_frame_index, view_order, token_info_dict, out_size, save_dir): token for token in first_frame_tokens}
 
             for future in as_completed(future_to_token):
