@@ -10,7 +10,7 @@ Take our baseline as an example. To generate the submission, first, run video ge
 ```bash
 cd ${MagicDrive_root}
 python workshop/test_submit.py \
-	resume_from_checkpoint=magicdrive-t-log/links/with_sweeps/SDv1.5mv-rawbox-t_2023-12-04_17-51_2.0t_0.4.3/weight-E4-S77040/
+	resume_from_checkpoint=magicdrive-t-log/links/with_sweeps/SDv1.5mv-rawbox-t_2023-12-04_17-51_2.0t_0.4.3/weight-E4-S77040/ \
 	task_id=track2 ++runner.validation_index=all \
     ++dataset.data.val.ann_file=data/nuscenes_mmdet3d-12Hz/nuscenes_interp_12Hz_infos_track2_eval.pkl \
     show_box=false runner.validation_times=4
@@ -136,7 +136,7 @@ Now you can run BEVFormer with
 ```bash
 cd ${ROOT}
 bash test_miou.sh \
-	magicdrive-t-log/evaluation/generated_samples/nuscenes_infos_temporal_val_3keyframes.pkl 8
+	magicdrive-t-log/evaluation/generated_samples 8
 # you can use as many gpus as you wish
 ```
 
