@@ -22,7 +22,7 @@ def read_results(log_dir, filename, key):
 
 
 map = read_results(log_dir, det_results_name, det_key_name)
-print(f"Your mAP: {map}\n")
+print(f"Your mAP: {map * 100:.4f}%\n")
 
 miou = read_results(log_dir, seg_results_name, seg_key_name)
-print(f"Your mIoU: {miou}\n")
+print(f"Your mIoU: {miou * 100:.4f}%\n")

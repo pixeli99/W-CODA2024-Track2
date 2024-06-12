@@ -287,10 +287,10 @@ def multi_gpu_test(model, data_loader, tmpdir=None, gpu_collect=False,
 
             seg_dict = dict(
                 Validation_num=len(dataset),
-                Divider=float(round(scores[1:].cpu().numpy()[0], 4)),
-                Pred_Crossing=float(round(scores[1:].cpu().numpy()[1], 4)),
-                Boundary=float(round(scores[1:].cpu().numpy()[2], 4)),
-                mIoU=float(round(mIoU.cpu().numpy().item(), 4))
+                Divider=float(scores[1:].cpu().numpy()[0]),
+                Pred_Crossing=float(scores[1:].cpu().numpy()[1]),
+                Boundary=float(scores[1:].cpu().numpy()[2]),
+                mIoU=float(mIoU.cpu().numpy().item())
             )
 
             with open(osp.join(log_root, 'segmentation_result.json'), 'a') as f:
